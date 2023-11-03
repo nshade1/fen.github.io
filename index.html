@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trade Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trade Update</h1>
+    <form id="departmentForm">
+        <h2>Mens</h2>
+        <label for="accs">Accs:</label>
+        <input type="number" id="accs" name="accs" value="1318"><br>
+
+        <label for="casual">Casual:</label>
+        <input type="number" id="casual" name="casual" value="3286"><br>
+
+        <label for="cont">Cont:</label>
+        <input type="number" id="cont" name="cont" value="602"><br>
+
+        <label for="denim">Denim:</label>
+        <input type="number" id="denim" name="denim" value="1825"><br>
+
+        <label for="trend">Trend:</label>
+        <input type="number" id="trend" name="trend" value="771"><br>
+
+        <button type="button" onclick="calculateTotalMens()">Calculate Total</button>
+
+        <h2>Mens Concessions</h2>
+        <label for="as">AS:</label>
+        <input type="number" id="as" name="as" value="550"><br>
+
+        <label for "kg">KG:</label>
+        <input type="number" id="kg" name="kg" value="453"><br>
+
+        <label for="boss">Boss:</label>
+        <input type="number" id="boss" name="boss" value="1280"><br>
+
+        <label for="tommyHilfiger">Tommy Hilfiger:</label>
+        <input type="number" id="tommyHilfiger" name="tommyHilfiger" value="545"><br>
+
+        <label for="tommyJeans">Tommy Jeans:</label>
+        <input type="number" id="tommyJeans" name="tommyJeans" value="87"><br>
+
+        <label for="reiss">Reiss:</label>
+        <input type="number" id="reiss" name="reiss" value="575"><br>
+
+        <label for="st">ST:</label>
+        <input type="number" id="st" name="st" value="10"><br>
+
+        <label for="aubin">Aubin:</label>
+        <input type="number" id="aubin" name="aubin" value="419"><br>
+    </form>
+
+    <h2>Total for Mens: <span id="totalMens">7802</span></h2>
+    <h2>Total for Mens Concessions: <span id="totalMensConcessions">3919</span></h2>
+    <h2>Group Total: <span id="groupTotal">11721</span></h2>
+    <h2>Store Total: <span id="storeTotal">90736</span></h2>
+
+    <label for="storeTotalInput">Input Store Total:</label>
+    <input type="number" id="storeTotalInput" name="storeTotalInput" value="90736"><br>
+
+    <button type="button" onclick="updateStoreTotal()">Update Store Total</button>
+    <button type="button" onclick="calculateGroupTotal()">Recalculate Totals</button>
+    <button type="button" onclick="copyTradeReport()">Copy Trade Report</button>
+
+    <script>
+        function calculateTotalMens() {
+            const accs = parseInt(document.getElementById("accs").value);
+            const casual = parseInt(document.getElementById("casual").value);
+            const cont = parseInt(document.getElementById("cont").value);
+            const denim = parseInt(document.getElementById("denim").value);
+            const trend = parseInt(document.getElementById("trend").value);
+            const totalMens = accs + casual + cont + denim + trend;
+
+            document.getElementById("totalMens").textContent = totalMens;
+            calculateGroupTotal();
+        }
+
+        function calculateTotalMensConcessions() {
+            const as = parseInt(document.getElementById("as").value);
+            const kg = parseInt(document.getElementById("kg").value);
+            const boss = parseInt(document.getElementById("boss").value);
+            const tommyHilfiger = parseInt(document.getElementById("tommyHilfiger").value);
+            const tommyJeans = parseInt(document.getElementById("tommyJeans").value);
+            const reiss = parseInt(document.getElementById("reiss").value);
+            const st = parseInt(document.getElementById("st").value);
+            const aubin = parseInt(document.getElementById("aubin").value);
+            const totalMensConcessions = as + kg + boss + tommyHilfiger + tommyJeans + reiss + st + aubin;
+
+            document.getElementById("totalMensConcessions").textContent = totalMensConcessions;
+            calculateGroupTotal();
+        }
+
+        function calculateGroupTotal() {
+            const totalMens = parseInt(document.getElementById("totalMens").textContent);
+            const totalMensConcessions = parseInt(document.getElementById("totalMensConcessions").textContent);
+            const groupTotal = totalMens + totalMensConcessions;
+
+            document.getElementById("groupTotal").textContent = groupTotal;
+        }
+
+        function updateStoreTotal() {
+            const storeTotalInput = parseInt(document.getElementById("storeTotalInput").value);
+            document.getElementById("storeTotal").textContent = storeTotalInput;
+        }
+
+        function copyTradeReport() {
+            const tradeReport = `
+Trade update
+Mens
+Accs £${document.getElementById("accs").value}
+Casual £${document.getElementById("casual").value}
+Cont £${document.getElementById("cont").value}
+Denim £${document.getElementById("denim").value}
+Trend £${document.getElementById("trend").value}
+Total for Mens: £${document.getElementById("totalMens").textContent}
+
+Mens Concessions
+AS £${document.getElementById("as").value}
+KG £${document.getElementById("kg").value}
+Boss £${document.getElementById("boss").value}
+Tommy Hilfiger £${document.getElementById("tommyHilfiger").value}
+Tommy Jeans £${document.getElementById("tommyJeans").value}
+Reiss £${document.getElementById("reiss").value}
+ST £${document.getElementById("st").value}
+Aubin £${document.getElementById("aubin").value}
+Total for Mens Concessions: £${document.getElementById("totalMensConcessions").textContent}
+
+Group Total: £${document.getElementById("groupTotal").textContent}
+Store Total: £${document.getElementById("storeTotal").textContent}
+`;
+
+            // Create a text area to copy the text to clipboard
+            const textArea = document.createElement("textarea");
+            textArea.value = tradeReport;
+            document.body.appendChild(textArea);
+            textArea.select();
+
+            try {
+                // Copy text to clipboard
+                document.execCommand("copy");
+                alert("Trade report has been copied to the clipboard");
+            } catch (err) {
+                console.error("Unable to copy to clipboard: " + err);
+            } finally {
+                document.body.removeChild(textArea);
+            }
+        }
+    </script>
+</body>
+</html>
